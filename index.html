@@ -11,7 +11,20 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
 <div class="chip-bg" aria-hidden="true"></div>
+<div class="suits-field" aria-hidden="true">
+  <span class="suit suit-gold">♠</span>
+  <span class="suit suit-red">♥</span>
+  <span class="suit suit-gold">♣</span>
+  <span class="suit suit-red">♦</span>
+  <span class="suit suit-gold">♠</span>
+  <span class="suit suit-red">♥</span>
+  <span class="suit suit-gold">♣</span>
+  <span class="suit suit-red">♦</span>
+  <span class="suit suit-gold">♠</span>
+  <span class="suit suit-red">♦</span>
+</div>
 
 <header class="site-header">
   <div class="container header-inner">
@@ -58,10 +71,10 @@
   <!-- RULETA -->
   <section class="roulette-section" id="ruleta">
     <div class="container">
-      <h2 class="section-title">Girá y ganá tu premio 🎡</h2>
-      <p class="section-sub">Una vuelta por persona, por día. Mostrá el código que te toque en caja para canjear tu premio.</p>
+      <h2 class="section-title" data-reveal>Girá y ganá tu premio 🎡</h2>
+      <p class="section-sub" data-reveal>Una vuelta por persona, por día. Mostrá el código que te toque en caja para canjear tu premio.</p>
 
-      <div class="roulette-wrap">
+      <div class="roulette-wrap" data-reveal>
         <div class="roulette-pointer" aria-hidden="true"></div>
         <canvas id="wheelCanvas" width="420" height="420" role="img" aria-label="Ruleta de premios"></canvas>
         <button id="spinBtn" class="spin-btn">GIRAR</button>
@@ -90,23 +103,23 @@
   <!-- MENU DESTACADO -->
   <section class="featured-menu">
     <div class="container">
-      <h2 class="section-title">Cartas Ganadoras del Menú</h2>
-      <p class="section-sub">Una probadita de nuestra edición especial. Carta completa en la sección Menú.</p>
+      <h2 class="section-title" data-reveal>Cartas Ganadoras del Menú</h2>
+      <p class="section-sub" data-reveal>Una probadita de nuestra edición especial. Carta completa en la sección Menú.</p>
 
       <div class="card-grid">
-        <article class="menu-card">
+        <article class="menu-card" data-reveal>
           <div class="card-badge">♠ Top premio</div>
           <h3>Jackpot Burger</h3>
           <p>Doble smash, doble cheddar, panceta crocante, cebolla caramelizada y salsa jackpot secreta.</p>
           <span class="price">$8.900</span>
         </article>
-        <article class="menu-card">
+        <article class="menu-card" data-reveal>
           <div class="card-badge">♦ Favorita</div>
           <h3>Royal Flush Burger</h3>
           <p>Medallón wagyu, blue cheese, rúcula, mermelada de cebolla y reducción de vino tinto.</p>
           <span class="price">$9.500</span>
         </article>
-        <article class="menu-card">
+        <article class="menu-card" data-reveal>
           <div class="card-badge">♣ Clásica</div>
           <h3>Full House Burger</h3>
           <p>Triple carne, triple queso, panceta, huevo frito y aros de cebolla crocantes.</p>
@@ -114,7 +127,7 @@
         </article>
       </div>
 
-      <div class="center-cta">
+      <div class="center-cta" data-reveal>
         <a href="menu.html" class="btn btn-outline">Ver la carta completa 🃏</a>
       </div>
     </div>
@@ -123,32 +136,32 @@
   <!-- PROMOS -->
   <section class="promos" id="promos">
     <div class="container">
-      <h2 class="section-title">Promos de la Noche</h2>
+      <h2 class="section-title" data-reveal>Promos de la Noche</h2>
       <div class="promo-grid">
-        <div class="promo-item">
+        <div class="promo-item" data-reveal>
           <span class="promo-icon">🎲</span>
           <h3>2x1 en Combos</h3>
           <p>En todos los combos de edición especial, de 20 a 22 hs.</p>
         </div>
-        <div class="promo-item">
+        <div class="promo-item" data-reveal>
           <span class="promo-icon">🃏</span>
           <h3>Croupier Fries gratis</h3>
           <p>Pidiendo cualquier Jackpot Burger, tus papas van por la casa.</p>
         </div>
-        <div class="promo-item">
+        <div class="promo-item" data-reveal>
           <span class="promo-icon">💰</span>
           <h3>Fichas de descuento</h3>
           <p>Sumá fichas con cada compra y canjealas por premios al final de la noche.</p>
         </div>
       </div>
-      <p class="terms">*Promos válidas exclusivamente el día del evento. No acumulables entre sí. Consultá términos y condiciones en el local.</p>
+      <p class="terms" data-reveal>*Promos válidas exclusivamente el día del evento. No acumulables entre sí. Consultá términos y condiciones en el local.</p>
     </div>
   </section>
 
   <!-- CONTACTO -->
   <section class="contact" id="contacto">
     <div class="container contact-inner">
-      <div>
+      <div data-reveal>
         <h2 class="section-title">Te esperamos</h2>
         <p class="section-sub">Reservá tu mesa para la Noche de Casino, los lugares son limitados.</p>
         <ul class="contact-list">
@@ -158,7 +171,7 @@
           <li>📷 @jackpotburger</li>
         </ul>
       </div>
-      <div class="contact-card">
+      <div class="contact-card" data-reveal>
         <h3>Reservá tu mesa</h3>
         <form id="reserveForm" class="reserve-form">
           <input type="text" placeholder="Tu nombre" required>
@@ -182,5 +195,6 @@
 
 <script src="js/roulette.js"></script>
 <script src="js/main.js"></script>
+<script src="js/scroll-effects.js"></script>
 </body>
 </html>
