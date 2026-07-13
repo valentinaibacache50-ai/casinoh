@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jackpot Burger | Noche de Casino - Edición Especial</title>
+<meta name="description" content="Jackpot Burger presenta su Noche de Casino: gira la ruleta, gana promos y descubre el menú de edición especial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="chip-bg" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">🎰</span>
+      <span class="brand-name">Jackpot <strong>Burger</strong></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="index.html#ruleta">Ruleta</a>
+      <a href="menu.html">Menú Edición Especial</a>
+      <a href="index.html#promos">Promos</a>
+      <a href="index.html#contacto">Ubicación</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">✨ Edición Especial · Una noche, una sola vez ✨</p>
+      <h1>BIENVENIDO A LA<br><span class="glow">NOCHE DE CASINO</span></h1>
+      <p class="hero-sub">Gira la ruleta, gana premios reales y probá las hamburguesas de edición limitada inspiradas en el mundo del casino.</p>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div class="countdown-item"><span id="cd-days">00</span><small>días</small></div>
+        <div class="countdown-item"><span id="cd-hours">00</span><small>hs</small></div>
+        <div class="countdown-item"><span id="cd-mins">00</span><small>min</small></div>
+        <div class="countdown-item"><span id="cd-secs">00</span><small>seg</small></div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="#ruleta" class="btn btn-primary">🎡 Girar la ruleta</a>
+        <a href="menu.html" class="btn btn-outline">Ver menú especial</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULETA -->
+  <section class="roulette-section" id="ruleta">
+    <div class="container">
+      <h2 class="section-title">Girá y ganá tu premio 🎡</h2>
+      <p class="section-sub">Una vuelta por persona, por día. Mostrá el código que te toque en caja para canjear tu premio.</p>
+
+      <div class="roulette-wrap">
+        <div class="roulette-pointer" aria-hidden="true"></div>
+        <canvas id="wheelCanvas" width="420" height="420" role="img" aria-label="Ruleta de premios"></canvas>
+        <button id="spinBtn" class="spin-btn">GIRAR</button>
+      </div>
+
+      <p class="roulette-hint" id="rouletteHint">Presioná «GIRAR» para intentar tu suerte.</p>
+    </div>
+  </section>
+
+  <!-- MODAL PREMIO -->
+  <div class="modal-overlay" id="prizeModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+      <p class="modal-eyebrow">🎉 ¡Felicitaciones!</p>
+      <h3 id="modalTitle">Ganaste:</h3>
+      <p class="modal-prize" id="modalPrizeText"></p>
+      <div class="promo-code" id="promoCodeBox">
+        <span id="promoCode">------</span>
+        <button id="copyCodeBtn" title="Copiar código">Copiar</button>
+      </div>
+      <p class="modal-note">Válido únicamente el día del evento. Mostrá esta pantalla en caja.</p>
+      <button class="btn btn-primary modal-btn" id="modalCloseBtn">¡Genial!</button>
+    </div>
+  </div>
+
+  <!-- MENU DESTACADO -->
+  <section class="featured-menu">
+    <div class="container">
+      <h2 class="section-title">Cartas Ganadoras del Menú</h2>
+      <p class="section-sub">Una probadita de nuestra edición especial. Carta completa en la sección Menú.</p>
+
+      <div class="card-grid">
+        <article class="menu-card">
+          <div class="card-badge">♠ Top premio</div>
+          <h3>Jackpot Burger</h3>
+          <p>Doble smash, doble cheddar, panceta crocante, cebolla caramelizada y salsa jackpot secreta.</p>
+          <span class="price">$8.900</span>
+        </article>
+        <article class="menu-card">
+          <div class="card-badge">♦ Favorita</div>
+          <h3>Royal Flush Burger</h3>
+          <p>Medallón wagyu, blue cheese, rúcula, mermelada de cebolla y reducción de vino tinto.</p>
+          <span class="price">$9.500</span>
+        </article>
+        <article class="menu-card">
+          <div class="card-badge">♣ Clásica</div>
+          <h3>Full House Burger</h3>
+          <p>Triple carne, triple queso, panceta, huevo frito y aros de cebolla crocantes.</p>
+          <span class="price">$9.900</span>
+        </article>
+      </div>
+
+      <div class="center-cta">
+        <a href="menu.html" class="btn btn-outline">Ver la carta completa 🃏</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMOS -->
+  <section class="promos" id="promos">
+    <div class="container">
+      <h2 class="section-title">Promos de la Noche</h2>
+      <div class="promo-grid">
+        <div class="promo-item">
+          <span class="promo-icon">🎲</span>
+          <h3>2x1 en Combos</h3>
+          <p>En todos los combos de edición especial, de 20 a 22 hs.</p>
+        </div>
+        <div class="promo-item">
+          <span class="promo-icon">🃏</span>
+          <h3>Croupier Fries gratis</h3>
+          <p>Pidiendo cualquier Jackpot Burger, tus papas van por la casa.</p>
+        </div>
+        <div class="promo-item">
+          <span class="promo-icon">💰</span>
+          <h3>Fichas de descuento</h3>
+          <p>Sumá fichas con cada compra y canjealas por premios al final de la noche.</p>
+        </div>
+      </div>
+      <p class="terms">*Promos válidas exclusivamente el día del evento. No acumulables entre sí. Consultá términos y condiciones en el local.</p>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="container contact-inner">
+      <div>
+        <h2 class="section-title">Te esperamos</h2>
+        <p class="section-sub">Reservá tu mesa para la Noche de Casino, los lugares son limitados.</p>
+        <ul class="contact-list">
+          <li>📍 Dirección de ejemplo 123, Tu Ciudad</li>
+          <li>🕗 20:00 a 01:00 hs</li>
+          <li>📞 +54 9 11 0000-0000</li>
+          <li>📷 @jackpotburger</li>
+        </ul>
+      </div>
+      <div class="contact-card">
+        <h3>Reservá tu mesa</h3>
+        <form id="reserveForm" class="reserve-form">
+          <input type="text" placeholder="Tu nombre" required>
+          <input type="tel" placeholder="Tu teléfono" required>
+          <input type="number" placeholder="N° de personas" min="1" required>
+          <button type="submit" class="btn btn-primary">Reservar</button>
+        </form>
+        <p class="form-note" id="formNote"></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>🎰 Jackpot Burger — Noche de Casino, Edición Especial 2026</span>
+    <span>18+ · Jugá con responsabilidad. Esta ruleta es un juego promocional sin fines de azar real.</span>
+  </div>
+</footer>
+
+<script src="js/roulette.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
