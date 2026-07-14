@@ -32,8 +32,10 @@
   ];
 
   const SLICE_ANGLE = (Math.PI * 2) / PRIZES.length;
-  // Rich wheel-of-fortune palette: one distinct color per slice.
-  const COLORS = ['#e63946', '#f4a300', '#1d3557', '#2a9d8f', '#d81159', '#111015', '#8338ec', '#e8c766'];
+  // Two-tone purple wheel (deep violet + pale lavender), alternating.
+  const COLORS = ['#3d1f7a', '#c9b0ec'];
+  // Text color per slice tone: white on the dark violet, deep violet on lavender.
+  const TEXT_COLORS = ['#f4ecd8', '#2a1150'];
 
   let currentRotation = 0;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,25 +43,35 @@
   function drawWheel(now) {
     now = now || 0;
     ctx.clearRect(0, 0, SIZE, SIZE);
+
+    // outer gold rim + dark bezel behind the slices
+    ctx.beginPath();
+    ctx.arc(CENTER, CENTER, RADIUS - 2, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a0f33';
+    ctx.fill();
+
     ctx.save();
     ctx.translate(CENTER, CENTER);
     ctx.rotate(currentRotation);
 
+    const rSlice = RADIUS - 22;
+
     PRIZES.forEach((prize, i) => {
       const start = i * SLICE_ANGLE;
       const end = start + SLICE_ANGLE;
+      const tone = i % 2;
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.arc(0, 0, RADIUS - 6, start, end);
+      ctx.arc(0, 0, rSlice, start, end);
       ctx.closePath();
-      // radial shading gives each slice a bit of depth (lighter hub -> rim)
-      const grad = ctx.createRadialGradient(0, 0, RADIUS * 0.12, 0, 0, RADIUS);
-      grad.addColorStop(0, shade(COLORS[i % COLORS.length], 1.18));
-      grad.addColorStop(1, shade(COLORS[i % COLORS.length], 0.82));
+      // subtle radial shading (a touch lighter toward the rim, like the ref)
+      const grad = ctx.createRadialGradient(0, 0, rSlice * 0.15, 0, 0, rSlice);
+      grad.addColorStop(0, shade(COLORS[tone], 0.9));
+      grad.addColorStop(1, shade(COLORS[tone], 1.08));
       ctx.fillStyle = grad;
       ctx.fill();
-      ctx.strokeStyle = 'rgba(255,235,180,0.35)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -68,47 +80,45 @@
       ctx.rotate(start + SLICE_ANGLE / 2);
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#fff';
-      ctx.shadowColor = 'rgba(0,0,0,.45)';
-      ctx.shadowBlur = 3;
+      ctx.fillStyle = TEXT_COLORS[tone];
       ctx.font = '20px sans-serif';
-      ctx.fillText(prize.icon, RADIUS - 20, 0);
-      ctx.font = 'bold 12px Poppins, sans-serif';
-      ctx.fillText(prize.label, RADIUS - 44, 0);
-      ctx.shadowBlur = 0;
+      ctx.fillText(prize.icon, rSlice - 16, 0);
+      ctx.font = '700 12px Poppins, sans-serif';
+      ctx.fillText(prize.label, rSlice - 40, 0);
       ctx.restore();
     });
 
     ctx.restore();
 
-    // marquee bulbs around the rim (fixed) with a chasing blink pattern
-    const BULB_COUNT = 20;
-    const BULB_RADIUS = RADIUS - 15;
-    const chase = reduceMotion ? -1 : Math.floor(now / 110) % BULB_COUNT;
+    // gold rim ring
+    ctx.beginPath();
+    ctx.arc(CENTER, CENTER, rSlice + 2, 0, Math.PI * 2);
+    ctx.lineWidth = 8;
+    const rimGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
+    rimGrad.addColorStop(0, '#ffe9a8');
+    rimGrad.addColorStop(0.5, '#c99a2e');
+    rimGrad.addColorStop(1, '#ffe9a8');
+    ctx.strokeStyle = rimGrad;
+    ctx.stroke();
+
+    // marquee bulbs sit on the gold rim with a chasing blink pattern
+    const BULB_COUNT = PRIZES.length * 2;
+    const BULB_RADIUS = rSlice + 2;
+    const chase = reduceMotion ? -1 : Math.floor(now / 90) % BULB_COUNT;
     for (let i = 0; i < BULB_COUNT; i++) {
       const angle = (i / BULB_COUNT) * Math.PI * 2 - Math.PI / 2;
       const bx = CENTER + Math.cos(angle) * BULB_RADIUS;
       const by = CENTER + Math.sin(angle) * BULB_RADIUS;
-      // every other bulb bright, and a travelling highlight sweeps around
-      const lit = reduceMotion ? true : (i % 2 === (Math.floor(now / 350) % 2));
+      const lit = reduceMotion ? true : (i % 2 === (Math.floor(now / 300) % 2));
       const isChase = i === chase;
       ctx.beginPath();
-      ctx.arc(bx, by, isChase ? 5 : 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = isChase ? '#fff6d8' : (lit ? '#ffe9a8' : '#8a7330');
-      ctx.shadowColor = 'rgba(255, 223, 128, 0.9)';
-      ctx.shadowBlur = (isChase || lit) ? 8 : 0;
+      ctx.arc(bx, by, isChase ? 4.5 : 3.2, 0, Math.PI * 2);
+      ctx.fillStyle = isChase ? '#ffffff' : (lit ? '#fff4d6' : '#6b5a9a');
+      ctx.shadowColor = 'rgba(255,255,255,0.9)';
+      ctx.shadowBlur = (isChase || lit) ? 9 : 0;
       ctx.fill();
     }
     ctx.shadowBlur = 0;
-
-    // hub
-    const hubGrad = ctx.createRadialGradient(CENTER - 4, CENTER - 4, 2, CENTER, CENTER, 16);
-    hubGrad.addColorStop(0, '#ffe9a8');
-    hubGrad.addColorStop(1, '#c99a2e');
-    ctx.beginPath();
-    ctx.arc(CENTER, CENTER, 14, 0, Math.PI * 2);
-    ctx.fillStyle = hubGrad;
-    ctx.fill();
   }
 
   // Lighten/darken a hex color by a factor (>1 lighter, <1 darker)
