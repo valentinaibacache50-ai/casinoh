@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/casino-ui.css">
 </head>
 <body>
 
@@ -76,6 +77,38 @@
     </div>
   </section>
 
+  <!-- BANNERS DESTACADOS -->
+  <section class="banners-section">
+    <div class="container">
+      <div class="banner-row">
+        <article class="promo-banner banner-featured" data-reveal>
+          <div class="banner-glow" aria-hidden="true"></div>
+          <div class="banner-body">
+            <span class="banner-tag">Exclusivo</span>
+            <h3 class="banner-title">Noche de Casino</h3>
+            <p class="banner-highlight">+ 2x1 en Combos</p>
+            <a href="menu.html" class="banner-btn">Ver detalles</a>
+          </div>
+          <div class="banner-art" aria-hidden="true">🎰</div>
+        </article>
+
+        <article class="promo-banner banner-tournament" data-reveal>
+          <div class="banner-glow" aria-hidden="true"></div>
+          <div class="banner-body">
+            <span class="banner-tag tag-outline">Torneo de sabor</span>
+            <h3 class="banner-title">El más picante gana</h3>
+            <p class="banner-highlight banner-prize">Combo Jackpot gratis</p>
+            <div class="banner-meta">
+              <a href="#ruleta" class="banner-btn banner-btn-solid">Participar</a>
+              <span class="banner-countdown">🔥 Termina en <strong id="bannerCd">07h : 22m : 52s</strong></span>
+            </div>
+          </div>
+          <div class="banner-art" aria-hidden="true">🏆</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- RULETA -->
   <section class="roulette-section" id="ruleta">
     <div class="container">
@@ -117,6 +150,44 @@
       <button class="btn btn-primary modal-btn" id="modalCloseBtn">¡Genial!</button>
     </div>
   </div>
+
+  <!-- JUEGOS / EXPERIENCIAS -->
+  <section class="games-section">
+    <div class="container">
+      <h2 class="games-heading" data-reveal>nuestros<br>juegos</h2>
+
+      <div class="games-row">
+        <a href="#ruleta" class="game-card game-card--tall" data-reveal>
+          <span class="game-emoji">🎡</span>
+          <div class="game-card-body">
+            <span class="game-name">ruleta</span>
+            <span class="game-sub">Girá y ganá premios</span>
+          </div>
+        </a>
+        <a href="menu.html" class="game-card" data-reveal>
+          <span class="game-emoji">🍔</span>
+          <div class="game-card-body">
+            <span class="game-name">combos</span>
+            <span class="game-sub">Edición especial</span>
+          </div>
+        </a>
+        <a href="#promos" class="game-card game-card--tall" data-reveal>
+          <span class="game-emoji">👑</span>
+          <div class="game-card-body">
+            <span class="game-name">jackpot</span>
+            <span class="game-sub">30% OFF y más</span>
+          </div>
+        </a>
+        <a href="menu.html" class="game-card" data-reveal>
+          <span class="game-emoji">🍰</span>
+          <div class="game-card-body">
+            <span class="game-name">postres</span>
+            <span class="game-sub">A todo o nada</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- MENU DESTACADO -->
   <section class="featured-menu">

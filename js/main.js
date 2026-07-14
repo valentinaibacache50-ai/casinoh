@@ -65,6 +65,21 @@
     setInterval(updateCountdown, 1000);
   }
 
+  // Tournament banner countdown (a rolling ~7h30m timer that loops)
+  const bannerCd = document.getElementById('bannerCd');
+  if (bannerCd) {
+    let remaining = 7 * 3600 + 22 * 60 + 52; // 07h 22m 52s
+    const tickBanner = () => {
+      remaining = remaining <= 0 ? 7 * 3600 + 30 * 60 : remaining - 1;
+      const h = Math.floor(remaining / 3600);
+      const m = Math.floor((remaining % 3600) / 60);
+      const s = remaining % 60;
+      bannerCd.textContent = `${pad(h)}h : ${pad(m)}m : ${pad(s)}s`;
+    };
+    tickBanner();
+    setInterval(tickBanner, 1000);
+  }
+
   // Reservation form (demo only, no backend wired up)
   const reserveForm = document.getElementById('reserveForm');
   const formNote = document.getElementById('formNote');

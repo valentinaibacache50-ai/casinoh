@@ -1,0 +1,136 @@
+/* =========================================================================
+   CASINO-UI — tournament banners + game cards, styled after the reference
+   casino app screens (dark purple, glossy, neon glow). Vanilla CSS, no assets.
+   Relies on the design tokens defined in styles.css (:root).
+   ========================================================================= */
+
+/* ---------- PROMO / TOURNAMENT BANNERS ---------- */
+.banners-section{padding:40px 0 10px;}
+.banner-row{
+  display:grid; grid-template-columns:1fr 1fr; gap:22px;
+}
+.promo-banner{
+  position:relative; overflow:hidden;
+  border-radius:22px;
+  padding:26px 28px;
+  min-height:170px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--elev-3), var(--inset-hi);
+  isolation:isolate;
+}
+.banner-featured{
+  background:linear-gradient(135deg, #4a1d8f 0%, #2a1150 60%, #1a0c2c 100%);
+}
+.banner-tournament{
+  background:linear-gradient(135deg, #241033 0%, #12081f 100%);
+}
+.banner-glow{
+  position:absolute; z-index:-1; inset:auto -20% -60% auto;
+  width:280px; height:280px; border-radius:50%;
+  background:radial-gradient(circle, rgba(157,59,242,.6), transparent 70%);
+  filter:blur(30px);
+}
+.banner-tournament .banner-glow{
+  background:radial-gradient(circle, rgba(232,199,102,.4), transparent 70%);
+}
+.banner-body{position:relative; z-index:1; max-width:75%;}
+.banner-tag{
+  display:inline-block; font-size:.68rem; font-weight:800; letter-spacing:.18em;
+  text-transform:uppercase; color:#1a1305;
+  background:linear-gradient(180deg, var(--gold-2), var(--gold));
+  padding:4px 12px; border-radius:999px; margin-bottom:12px;
+  box-shadow:var(--elev-1);
+}
+.banner-tag.tag-outline{
+  background:transparent; color:var(--gold);
+  border:1px solid var(--gold); box-shadow:none;
+}
+.banner-title{
+  font-size:clamp(1.4rem, 2.6vw, 2rem); margin:0 0 4px; color:#fff; line-height:1.05;
+}
+.banner-highlight{
+  font-size:1.05rem; font-weight:700; color:var(--violet-2); margin:0 0 16px;
+}
+.banner-prize{color:var(--gold-2);}
+.banner-btn{
+  display:inline-block; font-size:.85rem; font-weight:700;
+  padding:9px 20px; border-radius:999px;
+  background:rgba(255,255,255,.08); color:var(--cream);
+  border:1px solid rgba(255,255,255,.18);
+  transition:transform .2s var(--ease-bounce), background .2s;
+}
+.banner-btn:hover{transform:translateY(-2px); background:rgba(255,255,255,.16);}
+.banner-btn-solid{
+  background:linear-gradient(180deg, var(--gold-2), var(--gold)); color:#1a1305;
+  border:none; box-shadow:var(--elev-1);
+}
+.banner-meta{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+.banner-countdown{font-size:.82rem; color:var(--text-muted);}
+.banner-countdown strong{color:var(--gold); font-variant-numeric:tabular-nums;}
+.banner-art{
+  position:relative; z-index:1;
+  font-size:4.5rem; line-height:1;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.6));
+  animation:bannerArtFloat 5s ease-in-out infinite;
+}
+@keyframes bannerArtFloat{
+  0%,100%{transform:translateY(0) rotate(-4deg);}
+  50%{transform:translateY(-10px) rotate(4deg);}
+}
+
+/* ---------- GAME CARDS ("nuestros juegos") ---------- */
+.games-section{padding:70px 0 40px;}
+.games-heading{
+  font-size:clamp(2.4rem, 7vw, 4.5rem);
+  font-weight:900; line-height:.92; text-transform:lowercase;
+  margin:0 0 40px; color:#fff; letter-spacing:-.02em;
+  text-shadow:0 2px 0 rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.5);
+}
+.games-row{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
+  align-items:end;
+}
+.game-card{
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  min-height:300px; padding:22px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg, #3a1d6e 0%, #24123f 55%, #d9c3ef 100%);
+  box-shadow:var(--elev-2), var(--inset-hi);
+  transition:transform .3s var(--ease-bounce), box-shadow .3s;
+}
+.game-card--tall{min-height:380px;}
+.game-card:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--elev-4), var(--inset-hi), 0 0 34px rgba(157,59,242,.35);
+}
+.game-emoji{
+  position:absolute; top:38%; left:50%; transform:translate(-50%,-50%);
+  font-size:4.6rem; line-height:1;
+  filter:drop-shadow(0 16px 30px rgba(0,0,0,.6));
+  transition:transform .4s var(--ease-bounce);
+}
+.game-card:hover .game-emoji{transform:translate(-50%,-58%) scale(1.08);}
+.game-card-body{position:relative; z-index:1;}
+.game-name{
+  display:block; font-family:'Bricolage Grotesque', sans-serif; font-weight:800;
+  font-size:1.5rem; text-transform:lowercase; color:#2a1150; line-height:1;
+}
+.game-sub{
+  display:block; margin-top:6px; font-size:.85rem; font-weight:600; color:#5a3d86;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .games-row{grid-template-columns:repeat(2, 1fr);}
+  .game-card, .game-card--tall{min-height:280px;}
+}
+@media (max-width:760px){
+  .banner-row{grid-template-columns:1fr;}
+  .banner-body{max-width:70%;}
+}
+@media (max-width:480px){
+  .games-row{grid-template-columns:1fr;}
+}
