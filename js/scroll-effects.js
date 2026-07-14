@@ -61,4 +61,21 @@
       });
     });
   }
+
+  // Subtle mouse parallax on the floating-suits layer, only in the hero area.
+  // The suits themselves are already CSS-animated (drifting), so we move their
+  // shared wrapper instead of fighting each suit's own transform animation.
+  const suitsField = document.querySelector('.suits-field');
+  const heroSection = document.querySelector('.hero, .menu-hero');
+  if (canTilt && heroSection && suitsField) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      suitsField.style.transform = `translate(${px * 16}px, ${py * 16}px)`;
+    });
+    heroSection.addEventListener('mouseleave', () => {
+      suitsField.style.transform = '';
+    });
+  }
 })();

@@ -28,12 +28,24 @@
     return String(n).padStart(2, '0');
   }
 
+  function setDigit(el, value) {
+    if (el.textContent === value) return;
+    el.textContent = value;
+    el.classList.remove('flip');
+    // eslint-disable-next-line no-void
+    void el.offsetWidth; // restart the animation
+    el.classList.add('flip');
+  }
+
   function updateCountdown() {
     if (!daysEl) return;
     const diff = EVENT_DATE.getTime() - Date.now();
 
     if (diff <= 0) {
-      daysEl.textContent = hoursEl.textContent = minsEl.textContent = secsEl.textContent = '00';
+      setDigit(daysEl, '00');
+      setDigit(hoursEl, '00');
+      setDigit(minsEl, '00');
+      setDigit(secsEl, '00');
       return;
     }
 
@@ -42,10 +54,10 @@
     const mins = Math.floor((diff / (1000 * 60)) % 60);
     const secs = Math.floor((diff / 1000) % 60);
 
-    daysEl.textContent = pad(days);
-    hoursEl.textContent = pad(hours);
-    minsEl.textContent = pad(mins);
-    secsEl.textContent = pad(secs);
+    setDigit(daysEl, pad(days));
+    setDigit(hoursEl, pad(hours));
+    setDigit(minsEl, pad(mins));
+    setDigit(secsEl, pad(secs));
   }
 
   if (daysEl) {
