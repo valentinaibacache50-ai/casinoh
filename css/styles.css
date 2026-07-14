@@ -245,7 +245,87 @@ ul{list-style:none; margin:0; padding:0;}
 .btn-outline:hover{background:rgba(157,59,242,.12); border-color:var(--gold); box-shadow:var(--elev-2);}
 
 /* HERO */
-.hero{padding:90px 0 60px; text-align:center;}
+.hero{padding:90px 0 60px; text-align:center; position:relative; overflow:hidden;}
+
+/* LAMP EFFECT (glow entrance backdrop) */
+.lamp-effect{
+  position:absolute; top:0; left:0; width:100%; z-index:0;
+  display:flex; justify-content:center; overflow:hidden;
+  height:420px; pointer-events:none;
+}
+.lamp-blur{
+  position:absolute; top:0; z-index:5; height:120px; width:100%;
+  background:transparent; opacity:.5; backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  mask-image:linear-gradient(to bottom, black, transparent);
+}
+.lamp-glow{
+  position:absolute; top:0; z-index:5; height:140px; width:26rem;
+  border-radius:999px;
+  background:var(--violet);
+  opacity:.55; filter:blur(70px);
+  animation:lampGlowIn 1s ease .2s both;
+}
+.lamp-line{
+  position:absolute; top:0; z-index:5; height:2px; width:15rem;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation:lampLineIn .9s ease-in-out .3s both;
+}
+.lamp-cone{
+  position:absolute; top:0; height:280px; width:15rem;
+  opacity:0; animation:lampConeIn .9s ease-in-out .3s both;
+}
+.lamp-cone-left{
+  right:50%;
+  background:conic-gradient(from 70deg at center top, var(--violet) 0deg, transparent 60deg);
+  -webkit-mask-image:linear-gradient(to top right, black, transparent 70%);
+  mask-image:linear-gradient(to top right, black, transparent 70%);
+}
+.lamp-cone-right{
+  left:50%;
+  background:conic-gradient(from 290deg at center top, transparent 300deg, var(--gold) 360deg);
+  -webkit-mask-image:linear-gradient(to top left, black, transparent 70%);
+  mask-image:linear-gradient(to top left, black, transparent 70%);
+}
+@keyframes lampGlowIn{from{opacity:0; width:14rem;} to{opacity:.55; width:26rem;}}
+@keyframes lampLineIn{from{width:8rem;} to{width:26rem;}}
+@keyframes lampConeIn{from{opacity:0; width:10rem;} to{opacity:.9; width:15rem;}}
+
+/* Cover the dotted texture behind the hero so the lamp glow reads clean;
+   scrolls away with the hero, so dots return for the rest of the page. */
+.hero::before{
+  content:'';
+  position:absolute; inset:0; z-index:0;
+  background:radial-gradient(circle at 50% 0%, var(--violet-mid), var(--black) 70%);
+}
+
+/* BRAND EMBLEM (H mark + wordmark, entrance-revealed with the lamp) */
+.brand-emblem{
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  margin-bottom:22px;
+  animation:emblemIn 1s var(--ease-bounce) .5s both;
+}
+.brand-emblem-h{
+  font-size:clamp(3rem, 7vw, 4.5rem);
+  font-weight:900;
+  line-height:1;
+  background:linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 55%, var(--violet-2) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(232,199,102,.45)) drop-shadow(0 0 40px rgba(157,59,242,.35));
+}
+.brand-emblem-word{
+  font-size:clamp(.85rem, 1.6vw, 1.1rem);
+  font-weight:700; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--text-muted);
+  margin-left:.35em; /* optically balance the letter-spacing */
+}
+@keyframes emblemIn{
+  from{opacity:0; transform:translateY(28px) scale(.9);}
+  to{opacity:1; transform:translateY(0) scale(1);}
+}
+
+.hero .container{position:relative; z-index:2;}
 .eyebrow{
   color:var(--gold); text-transform:uppercase; letter-spacing:3px;
   font-size:.85rem; font-weight:600; margin-bottom:10px;
@@ -344,6 +424,10 @@ ul{list-style:none; margin:0; padding:0;}
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
+@keyframes sunburstSpin{
+  from{transform:translate(-50%,-50%) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}
+}
 .roulette-section .container{position:relative; z-index:1;}
 .roulette-wrap{
   position:relative;
@@ -351,7 +435,25 @@ ul{list-style:none; margin:0; padding:0;}
   display:flex; align-items:center; justify-content:center;
   flex-direction:column;
 }
+.roulette-wrap::before{
+  content:'';
+  position:absolute;
+  top:50%; left:50%;
+  width:900px; height:900px;
+  transform:translate(-50%,-50%);
+  background:repeating-conic-gradient(
+    from 0deg,
+    rgba(199,123,255,.16) 0deg 6deg,
+    rgba(199,123,255,.03) 6deg 12deg
+  );
+  border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle, black 30%, transparent 70%);
+  mask-image:radial-gradient(circle, black 30%, transparent 70%);
+  animation:sunburstSpin 60s linear infinite;
+  z-index:0;
+}
 #wheelCanvas{
+  position:relative; z-index:1;
   max-width:100%; height:auto;
   border-radius:50%;
   border:8px solid var(--gold);

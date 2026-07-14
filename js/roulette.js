@@ -32,7 +32,8 @@
   ];
 
   const SLICE_ANGLE = (Math.PI * 2) / PRIZES.length;
-  const COLORS = ['#e8c766', '#111015', '#0d3b2e', '#c1272d'];
+  // Rich wheel-of-fortune palette: one distinct color per slice.
+  const COLORS = ['#e63946', '#f4a300', '#1d3557', '#2a9d8f', '#d81159', '#111015', '#8338ec', '#e8c766'];
 
   let currentRotation = 0;
 
@@ -70,6 +71,22 @@
     });
 
     ctx.restore();
+
+    // marquee bulbs around the rim (fixed, do not spin with the wheel)
+    const BULB_COUNT = 16;
+    const BULB_RADIUS = RADIUS - 16;
+    for (let i = 0; i < BULB_COUNT; i++) {
+      const angle = (i / BULB_COUNT) * Math.PI * 2;
+      const bx = CENTER + Math.cos(angle) * BULB_RADIUS;
+      const by = CENTER + Math.sin(angle) * BULB_RADIUS;
+      ctx.beginPath();
+      ctx.arc(bx, by, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffe9a8';
+      ctx.shadowColor = 'rgba(255, 223, 128, 0.9)';
+      ctx.shadowBlur = 6;
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
 
     // hub
     ctx.beginPath();
