@@ -28,7 +28,13 @@
 html{scroll-behavior:smooth;}
 body{
   margin:0;
-  background: radial-gradient(circle at 50% 0%, var(--violet-mid), var(--black) 60%);
+  /* One warm, richer violet gradient for the whole page so every section
+     shares the same backdrop (no dark bands between sections). */
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 10%, rgba(157,59,242,.25), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 15% 30%, rgba(225,58,65,.12), transparent 60%),
+    linear-gradient(180deg, #3a1566 0%, #26103f 40%, #1a0c2c 100%);
+  background-attachment:fixed;
   color:var(--cream);
   font-family:'Poppins', sans-serif;
   overflow-x:hidden;
@@ -291,38 +297,48 @@ ul{list-style:none; margin:0; padding:0;}
 @keyframes lampLineIn{from{width:8rem;} to{width:26rem;}}
 @keyframes lampConeIn{from{opacity:0; width:10rem;} to{opacity:.9; width:15rem;}}
 
-/* Cover the dotted texture behind the hero so the lamp glow reads clean;
-   scrolls away with the hero, so dots return for the rest of the page. */
+/* Lighter, warmer glow behind the hero (not a black vignette) while still
+   masking the dotted texture so the lamp beams read cleanly. */
 .hero::before{
   content:'';
   position:absolute; inset:0; z-index:0;
-  background:radial-gradient(circle at 50% 0%, var(--violet-mid), var(--black) 70%);
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -5%, rgba(157,59,242,.55), transparent 65%),
+    linear-gradient(180deg, #47206f 0%, #2c1447 55%, transparent 100%);
 }
 
-/* BRAND EMBLEM (H mark + wordmark, entrance-revealed with the lamp) */
+/* BRAND EMBLEM — now the primary hero title (big H + wordmark) */
 .brand-emblem{
   position:relative; z-index:2;
-  display:flex; flex-direction:column; align-items:center; gap:2px;
-  margin-bottom:22px;
-  animation:emblemIn 1s var(--ease-bounce) .5s both;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  margin-bottom:0;
+  padding-top:20px;
+  animation:emblemIn 1s var(--ease-bounce) .4s both;
 }
 .brand-emblem-h{
-  font-size:clamp(3rem, 7vw, 4.5rem);
+  font-size:clamp(5rem, 13vw, 9.5rem);
   font-weight:900;
-  line-height:1;
+  line-height:.9;
   background:linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 55%, var(--violet-2) 100%);
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 4px 20px rgba(232,199,102,.45)) drop-shadow(0 0 40px rgba(157,59,242,.35));
+  filter:drop-shadow(0 6px 26px rgba(232,199,102,.45)) drop-shadow(0 0 50px rgba(157,59,242,.4));
 }
 .brand-emblem-word{
-  font-size:clamp(.85rem, 1.6vw, 1.1rem);
-  font-weight:700; letter-spacing:.35em; text-transform:uppercase;
-  color:var(--text-muted);
-  margin-left:.35em; /* optically balance the letter-spacing */
+  font-size:clamp(1.1rem, 2.6vw, 2rem);
+  font-weight:700; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--cream);
+  margin-left:.32em; /* optically balance the letter-spacing */
 }
 @keyframes emblemIn{
   from{opacity:0; transform:translateY(28px) scale(.9);}
   to{opacity:1; transform:translateY(0) scale(1);}
+}
+
+/* WELCOME BLOCK — secondary heading, separated below the emblem */
+.hero-welcome{
+  position:relative; z-index:2;
+  margin-top:clamp(60px, 12vh, 130px);
+  animation:fadeInUp 1s ease .8s both;
 }
 
 .hero .container{position:relative; z-index:2;}
@@ -331,7 +347,7 @@ ul{list-style:none; margin:0; padding:0;}
   font-size:.85rem; font-weight:600; margin-bottom:10px;
 }
 .hero h1, .menu-hero h1{
-  font-size:clamp(2.4rem, 6vw, 4.2rem);
+  font-size:clamp(2.2rem, 5vw, 3.6rem);
   margin:0 0 18px;
   line-height:1.05;
   text-shadow:0 2px 0 rgba(0,0,0,.5), 0 6px 20px rgba(0,0,0,.5);
@@ -354,11 +370,9 @@ ul{list-style:none; margin:0; padding:0;}
   from{opacity:0; transform:translateY(28px);}
   to{opacity:1; transform:translateY(0);}
 }
-.hero .eyebrow, .menu-hero .eyebrow{animation:fadeInUp .8s ease both;}
-.hero h1, .menu-hero h1{animation:fadeInUp .9s ease .15s both;}
-.hero .hero-sub, .menu-hero .hero-sub{animation:fadeInUp .9s ease .3s both;}
-.hero .countdown{animation:fadeInUp .9s ease .45s both;}
-.hero .hero-ctas{animation:fadeInUp .9s ease .6s both;}
+.menu-hero .eyebrow{animation:fadeInUp .8s ease both;}
+.menu-hero h1{animation:fadeInUp .9s ease .15s both;}
+.menu-hero .hero-sub{animation:fadeInUp .9s ease .3s both;}
 
 /* COUNTDOWN */
 .countdown{
@@ -409,16 +423,7 @@ ul{list-style:none; margin:0; padding:0;}
 .roulette-section{
   position:relative;
   padding:70px 0;
-  background:rgba(0,0,0,.25);
   overflow:hidden;
-}
-.roulette-section::before{
-  content:'';
-  position:absolute;
-  inset:-50%;
-  background:conic-gradient(from 0deg, transparent 0deg, rgba(232,199,102,.10) 50deg, transparent 130deg, transparent 220deg, rgba(157,59,242,.12) 270deg, transparent 340deg, transparent 360deg);
-  animation:spotlightSpin 14s linear infinite;
-  z-index:0;
 }
 @keyframes spotlightSpin{
   from{transform:rotate(0deg);}
@@ -556,7 +561,7 @@ ul{list-style:none; margin:0; padding:0;}
 .center-cta{text-align:center;}
 
 /* PROMOS */
-.promos{padding:80px 0; background:rgba(0,0,0,.25);}
+.promos{padding:80px 0;}
 .promo-grid{
   display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:24px; margin-bottom:24px;
